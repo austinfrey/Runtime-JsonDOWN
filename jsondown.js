@@ -1,4 +1,4 @@
-// requires RuntimeJS in the global scope
+// Requires RuntimeJS in the global scope
 const util = require('util');
 const MemDOWN = require('memdown');
 const fs = require('./fake-fs');
@@ -105,4 +105,4 @@ JsonDOWN.prototype._del = function (key, options, cb) {
 	this._writeToDisk(cb);
 };
 
-module.exports = JsonDOWN
+module.exports = JsonDOWN;

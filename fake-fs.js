@@ -1,4 +1,4 @@
-// requires RuntimeJS in the global scope
+// Requires RuntimeJS in the global scope
 const fatfs = require('fatfs');
 
 console.log('devices:', runtime.block.devices[0]);
