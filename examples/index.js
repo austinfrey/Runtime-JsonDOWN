@@ -2,10 +2,15 @@
 
 const runtime = require('runtimejs');
 const levelup = require('levelup');
-const {fs, JsonDOWN} = require('jsondown');
+const JsonDOWN = require('jsondown')
+const fs = require('./fake-fs')
 const db = levelup('/wOOt.json', {db: JsonDOWN});
 
+
+// Make sure FS is ready before attempting 'put', 'get' etc
 fs.on('ready', () => {
+
+	// Add an initial file on disk to write too. Use an empty object.
 	fs.writeFile('/wOOt.json', JSON.stringify({}), (err) => {
 		if (err) console.log(err)
 
@@ -21,6 +26,7 @@ fs.on('ready', () => {
 			console.log(val)
 		});
 
+		// read all keys back out of DB
 		db.createReadStream()
 	    .on('data', function (kv) {
 				console.log('%s: %s', kv.key, kv.value)
@@ -29,6 +35,7 @@ fs.on('ready', () => {
 				console.log('done')
 			})
 
+		// read all keys from file on disk.
 		fs.readFile('/wOOt.json', {encoding: 'utf8'}, (e, d) => {
 			if (e) {
 				console.log(e);
